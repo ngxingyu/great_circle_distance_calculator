@@ -70,13 +70,11 @@ class GreatCircleDistance {
 
   /// A latitude is considered invalid if its is greater than 90 degrees or less than -90 degrees.
   bool _isValidLatitude(double latitudeInRadians) =>
-      !(latitudeInRadians < _radiansFromDegrees(-90.0) ||
-          latitudeInRadians > _radiansFromDegrees(90.0));
+      !(latitudeInRadians < -(pi / 2) || latitudeInRadians > (pi / 2));
 
   /// A longitude is considered invalid if its is greater than 180 degrees or less than -180 degrees.
   bool _isValidLongitude(double longitudeInRadians) =>
-      !(longitudeInRadians < _radiansFromDegrees(-180.0) ||
-          longitudeInRadians > _radiansFromDegrees(180.0));
+      !(longitudeInRadians < -pi || longitudeInRadians > pi);
 
   void _throwExceptionOnInvalidCoordinates() {
     String invalidDescription = """
@@ -88,14 +86,13 @@ class GreatCircleDistance {
         """;
 
     if (!_isValidCoordinate(this.latitude1, this.longitude1)) {
-      throw new FormatException(
+      throw FormatException(
           "Invalid coordinates at latitude1|longitude1\n$invalidDescription");
     }
 
-    {
-      if (!_isValidCoordinate(this.latitude2, this.longitude2))
-        throw new FormatException(
-            "Invalid coordinates at latitude2|longitude2\n$invalidDescription");
+    if (!_isValidCoordinate(this.latitude2, this.longitude2)) {
+      throw FormatException(
+          "Invalid coordinates at latitude2|longitude2\n$invalidDescription");
     }
   }
 }
