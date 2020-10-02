@@ -3,6 +3,7 @@ import 'dart:math';
 import 'formula/harvesine.dart';
 import 'formula/spherical_lawofcosines.dart';
 import 'formula/vincenty.dart';
+import 'formula/equirectangular_projection.dart';
 
 /// The great-circle is shortest distance between two points on the surface of a sphere
 /// See [Great-circle distance](https://en.wikipedia.org/wiki/Great-circle_distance)
@@ -56,6 +57,11 @@ class GreatCircleDistance {
   /// See [Vincenty's formulae](https://en.wikipedia.org/wiki/Vincenty%27s_formulae)
   double vincentyDistance() {
     return Vincenty.distance(
+        this.latitude1, this.longitude1, this.latitude2, this.longitude2);
+  }
+
+  double equirectangularDistance() {
+    return Equirectangular_Projection.distance(
         this.latitude1, this.longitude1, this.latitude2, this.longitude2);
   }
 
